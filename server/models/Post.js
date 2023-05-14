@@ -16,7 +16,7 @@ const PostSchema = new Schema({
         required: false,
     },
     username: {
-        type, String,
+        type: String,
         required: true
     },
     categories: {
