@@ -1,8 +1,15 @@
 import { useContext, useState } from "react";
 import "./write.css";
+import Modal from '../../components/modal/modal';
 import axios from "axios";
 import { Context } from "../../context/Context";
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: process.env.REACT_APP_OPENAI_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 export default function Write() {
   const { user } = useContext(Context);
@@ -11,6 +18,51 @@ export default function Write() {
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState({});
+
+  const handleOpenModal = async () => {
+    try {
+      const responseDesc = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `Correct the typos and grammatical mistakes in the given text without changing its context. ${desc}`,
+        max_tokens: 1500,
+        temperature: 0,
+      });
+
+      // Fix needed
+      const responseTitle = await openai.createCompletion({
+        model: "text-davinci-edit-001",
+        input: title,
+        instruction: "Correct the typos and grammatical mistakes"
+      });
+
+      const responseHastags = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `Give 5 hastags suitable for the given text without changing its context. ${desc}`,
+        max_tokens: 1500,
+        temperature: 0,
+      });
+
+      const generatedHashtags = responseHastags.data.choices[0].text.trim();
+      const generatedDesc = responseDesc.data.choices[0].text.trim();
+      const generatedTitle = responseTitle.data.choices[0].text.trim();
+
+      const data = {
+        title: generatedTitle,
+        description: generatedDesc,
+        hashtags: generatedHashtags
+      }
+      setModalData({ ...modalData, data });
+
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+      setModalVisible(true);
+
+    }
+  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -55,6 +107,13 @@ export default function Write() {
         <img className="writeImg" src={selectedImage} alt="" />
       )}
       <form className="writeForm" onSubmit={handleSubmit}>
+        {modalVisible && (
+          <div className="modal">
+            <div className="modal-content">
+              <Modal data={modalData} />
+            </div>
+          </div>
+        )}
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <i className="writeIcon fas fa-plus"></i>
@@ -85,7 +144,7 @@ export default function Write() {
             ></textarea>
           </GrammarlyEditorPlugin>
         </div>
-        <button className="writeSubmit" type="submit">
+        <button className="writeSubmit" type="button" onClick={handleOpenModal}>
           Publish
         </button>
       </form>
