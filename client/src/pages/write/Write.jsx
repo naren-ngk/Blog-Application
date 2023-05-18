@@ -30,11 +30,11 @@ export default function Write() {
         temperature: 0,
       });
 
-      // Fix needed
       const responseTitle = await openai.createCompletion({
-        model: "text-davinci-edit-001",
-        input: title,
-        instruction: "Correct the typos and grammatical mistakes"
+        model: "text-davinci-003",
+        prompt: `Correct the typos and grammatical mistakes in the given text only without adding any thing else. ${title}`,
+        max_tokens: 1500,
+        temperature: 0,
       });
 
       const responseHastags = await openai.createCompletion({
@@ -44,11 +44,11 @@ export default function Write() {
         temperature: 0,
       });
 
+      const generatedTitle = responseTitle.data.choices[0].text.trim();
       const generatedHashtags = responseHastags.data.choices[0].text.trim();
       const generatedDesc = responseDesc.data.choices[0].text.trim();
-      const generatedTitle = responseTitle.data.choices[0].text.trim();
 
-      const data = {
+      let data = {
         title: generatedTitle,
         description: generatedDesc,
         hashtags: generatedHashtags
@@ -56,6 +56,7 @@ export default function Write() {
       setModalData({ ...modalData, data });
 
     } catch (error) {
+      console.log('jjfv')
       console.log(error);
 
     } finally {
@@ -103,15 +104,13 @@ export default function Write() {
   };
   return (
     <div className="write">
-      {selectedImage && (
-        <img className="writeImg" src={selectedImage} alt="" />
-      )}
       <form className="writeForm" onSubmit={handleSubmit}>
+        {selectedImage && (
+          <img className="writeImg" src={selectedImage} alt="" />
+        )}
         {modalVisible && (
           <div className="modal">
-            <div className="modal-content">
-              <Modal data={modalData} />
-            </div>
+              <Modal modalData={modalData} />
           </div>
         )}
         <div className="writeFormGroup">
@@ -137,7 +136,7 @@ export default function Write() {
         <div className="writeFormGroup">
           <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMERLY_CLIENT_ID}>
             <textarea
-              placeholder="Tell your story..."
+              placeholder="Write Your Blog..."
               type="text"
               className="writeInput writeText"
               onChange={e => setDesc(e.target.value)}

@@ -1,8 +1,5 @@
-.write {
-  padding-top: 50px;
-}
-
 .writeImg {
+  padding-top: 50px;
   margin-left: 150px;
   width: 70vw;
   height: 250px;
@@ -12,9 +9,11 @@
 
 .writeForm {
   position: relative;
+  height: 100%;
 }
 
 .writeFormGroup {
+  height: 100%;
   margin-left: 150px;
   display: flex;
   align-items: center;
@@ -63,7 +62,7 @@
 }
 
 .modal {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -71,11 +70,9 @@
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-}
+

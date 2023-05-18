@@ -2,6 +2,14 @@
     position: relative;
 }
 
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+}
+
 .modalImg {
     width: 100%;
     height: 250px;
@@ -31,7 +39,6 @@
 
 .modalText {
     font-size: 20px;
-    /* height: 100vh; */
 }
 
 .modalInput:focus {
@@ -39,7 +46,23 @@
 }
 
 .modalFormGroup {
-    margin-left: 150px;
     display: flex;
     align-items: center;
+}
+
+.modalWriteIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: rgba(121, 118, 118, 0.657);
+    cursor: pointer;
+}
+
+.pencil {
+    margin: 20px 0;
 }

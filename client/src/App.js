@@ -8,6 +8,7 @@ import Register from "./pages/register/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
+import './App.css'
 
 function App() {
   const { user } = useContext(Context);
