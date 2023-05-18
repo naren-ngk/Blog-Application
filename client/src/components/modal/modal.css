@@ -66,3 +66,13 @@
 .pencil {
     margin: 20px 0;
 }
+
+.modalLabel{
+    display: flex;
+    flex-direction: row;
+}
+
+.modalLabel p{
+    align-self: center;
+    margin: 10px;
+}
