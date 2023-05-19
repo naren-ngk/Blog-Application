@@ -3,6 +3,7 @@ import "./write.css";
 import Modal from '../../components/modal/modal';
 import axios from "axios";
 import { Context } from "../../context/Context";
+import { Oval } from 'react-loader-spinner';
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -20,8 +21,15 @@ export default function Write() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [loading, setLoadng] = useState(false);
+
+  const handleClose = () => {
+    setModalVisible(false);
+  }
 
   const handleOpenModal = async () => {
+    setLoadng(true);
+    setModalVisible(true);
     try {
       const responseDesc = await openai.createCompletion({
         model: "text-davinci-003",
@@ -57,7 +65,7 @@ export default function Write() {
         n: 1,
         size: "1024x1024",
       });
-      
+
       const generatedImage = responseImage.data.data[0].url;
       const generatedTitle = responseTitle.data.choices[0].text.trim();
       const generatedHashtags = responseHastags.data.choices[0].text.trim();
@@ -75,8 +83,7 @@ export default function Write() {
       console.log(error);
 
     } finally {
-      setModalVisible(true);
-
+      setLoadng(false);
     }
   };
 
@@ -125,7 +132,23 @@ export default function Write() {
         )}
         {modalVisible && (
           <div className="modal">
-            <Modal modalData={modalData} />
+            {loading ? (
+              <Oval
+                height={80}
+                width={80}
+                color="#f18701"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel='oval-loading'
+                secondaryColor="#f18701"
+                strokeWidth={2}
+                strokeWidthSecondary={3}
+              />
+            ) : (
+                <Modal modalData={modalData} handleClose={handleClose} />
+              )
+            }
           </div>
         )}
         <div className="writeFormGroup">
@@ -159,7 +182,7 @@ export default function Write() {
           </GrammarlyEditorPlugin>
         </div>
         <button className="writeSubmit" type="button" onClick={handleOpenModal}>
-          Publish
+          Improvise
         </button>
       </form>
     </div>

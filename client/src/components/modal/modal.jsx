@@ -1,5 +1,6 @@
 import './modal.css';
 import { useState } from 'react';
+import { Oval } from 'react-loader-spinner';
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
@@ -7,12 +8,13 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-function Modal({ modalData }) {
+function Modal({ modalData, handleClose }) {
     const { title, description, hashtags, photo } = modalData.data;
 
     const [file, setFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [generatedImage, setGeneratedImage] = useState(photo);
+    const [loading, setLoadng] = useState(false);
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -25,6 +27,7 @@ function Modal({ modalData }) {
     };
 
     const handleGenerate = async () => {
+        setLoadng(true);
         try {
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
@@ -45,14 +48,35 @@ function Modal({ modalData }) {
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoadng(false);
         }
     }
 
     return (
         <div className='modalContainer'>
             <div className='imageHolder'>
-                <img src={generatedImage} alt='Ai generated Image' className='modalImg' />
-                <button className='modalSubmit' onClick={handleGenerate} type='button'>Generate</button>
+                {loading ? (
+                    <Oval
+                        className='loader'
+                        height={80}
+                        width={80}
+                        color="#f18701"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel='oval-loading'
+                        secondaryColor="#f18701"
+                        strokeWidth={2}
+                        strokeWidthSecondary={3}
+                    />
+                ) : (
+                        <>
+                            <button className='modalClose' onClick={handleClose}><i class="fa-solid fa-circle-xmark"></i></button>
+                            <img src={generatedImage} alt='Ai generated Image' className='modalImg' />
+                            <button className='modalSubmit' onClick={handleGenerate} type='button'>Generate</button>
+                        </>
+                    )}
             </div>
             <div className='pencil'>
                 <label htmlFor="fileInput" className='modalLabel'>
