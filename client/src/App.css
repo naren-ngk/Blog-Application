@@ -3,3 +3,8 @@
 *{
     font-family: 'Inter', sans-serif;
 }
+
+::selection{
+    background-color: #00adcc9b;
+    color: white;
+}

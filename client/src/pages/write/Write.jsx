@@ -17,6 +17,9 @@ export default function Write() {
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [hashtags, setHashtags] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,6 +48,13 @@ export default function Write() {
         temperature: 0,
       });
 
+      const responseCategory = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `From the list [Art and Creativity,Technology and Gadgets,Travel and Adventure,Food and Cooking,Lifestyle and Personal Development,Sports,Entertainment, Others] select one which is suitable for the text given for its category. ${desc}`,
+        max_tokens: 1500,
+        temperature: 0,
+      })
+
       const responseHastags = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `Give 5 hastags suitable for the given text without changing its context. ${desc}`,
@@ -70,13 +80,20 @@ export default function Write() {
       const generatedTitle = responseTitle.data.choices[0].text.trim();
       const generatedHashtags = responseHastags.data.choices[0].text.trim();
       const generatedDesc = responseDesc.data.choices[0].text.trim();
+      const generatedCategory = responseCategory.data.choices[0].text.trim();
 
       let data = {
         title: generatedTitle,
         description: generatedDesc,
         hashtags: generatedHashtags,
-        photo: generatedImage
+        photo: generatedImage,
+        category: generatedCategory
       }
+      setTitle(generatedTitle);
+      setDesc(generatedDesc);
+      setHashtags(generatedHashtags);
+      setPhoto(generatedImage);
+      setCategory(generatedCategory);
       setModalData({ ...modalData, data });
 
     } catch (error) {
@@ -101,8 +118,9 @@ export default function Write() {
     e.preventDefault();
     const newPost = {
       username: user.username,
-      title,
-      desc,
+      title, desc,
+      hashtags, category,
+      photo
     };
     if (file) {
       const formData = new FormData();
@@ -146,7 +164,7 @@ export default function Write() {
                 strokeWidthSecondary={3}
               />
             ) : (
-                <Modal modalData={modalData} handleClose={handleClose} />
+                <Modal modalData={modalData} handleClose={handleClose} handleSubmit={handleSubmit} />
               )
             }
           </div>

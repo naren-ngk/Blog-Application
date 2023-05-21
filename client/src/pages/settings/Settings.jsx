@@ -55,7 +55,7 @@ export default function Settings() {
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
-            {imageUrl && <img src={imageUrl} alt="uploaded image" />}
+            {imageUrl && <img src={imageUrl} alt="uploaded" />}
             <label htmlFor="file">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>

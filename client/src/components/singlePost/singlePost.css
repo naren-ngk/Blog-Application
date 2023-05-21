@@ -86,6 +86,7 @@
 .singlePostDescInput:focus {
   outline: none;
 }
+
 .singlePostButton {
   width: 100px;
   border: none;
@@ -96,4 +97,81 @@
   cursor: pointer;
   align-self: flex-end;
   margin-top: 20px;
+}
+
+.commentwrapper p {
+  padding: 5px 10px;
+  font-size: 25px;
+  color: rgba(104, 104, 104, 0.582);
+  font-weight: 400;
+}
+
+.commentTilte{
+  margin: 10px 0;
+}
+
+.postInput {
+  float: left;
+  width: 27.33%;
+  margin: 40px 3%;
+  position: relative;
+}
+
+.effect-1 {
+  font-size: 20px;
+  border: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid #ccc;
+  width: 60vw;
+  outline: none;
+}
+
+.effect-1~.focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #3399FF;
+  transition: 0.4s;
+}
+
+.effect-1:focus~.focus-border {
+  width: 60vw;
+  transition: 0.4s;
+}
+
+.commentInput::placeholder {
+  font-size: 20px;
+  color: rgba(34, 34, 34, 0.534);
+
+}
+
+.postForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.postForm > div{
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.postForm button {
+  color: white;
+  background-color: teal;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.commentBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }

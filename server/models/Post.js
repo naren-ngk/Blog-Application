@@ -23,6 +23,10 @@ const PostSchema = new mongoose.Schema(
       type: Array,
       required: false,
     },
+    reviews: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review'
+    }]
   },
   { timestamps: true }
 );

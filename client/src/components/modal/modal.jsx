@@ -8,11 +8,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-function Modal({ modalData, handleClose }) {
-    const { title, description, hashtags, photo } = modalData.data;
+function Modal({ modalData, handleClose, handleSubmit }) {
+    const { title, description, hashtags, photo, category } = modalData.data;
 
     const [file, setFile] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
     const [generatedImage, setGeneratedImage] = useState(photo);
     const [loading, setLoadng] = useState(false);
 
@@ -21,7 +20,7 @@ function Modal({ modalData, handleClose }) {
         setFile(file);
         const reader = new FileReader();
         reader.onload = () => {
-            setSelectedImage(reader.result);
+            setGeneratedImage(reader.result);
         };
         reader.readAsDataURL(file);
     };
@@ -43,7 +42,6 @@ function Modal({ modalData, handleClose }) {
                 size: "1024x1024",
             });
             const image_url = responseImage.data.data[0].url;
-            console.log(image_url)
             setGeneratedImage(image_url);
 
         } catch (error) {
@@ -96,8 +94,15 @@ function Modal({ modalData, handleClose }) {
                     <p className='modalText modalInput'>{description}</p>
                 </div>
             </div>
-            <div>
-                {hashtags}
+            <div className='hashtagsContainer'>
+                <p className='hashtagsTitle'>Hashtags:</p>
+                <p className='hashtags'>{hashtags}</p>
+            </div>
+            <div className='categoryContainer'>
+                <span className='category'>{category}</span>
+            </div>
+            <div className='buttonPane'>
+                <button onClick={handleSubmit}>Publish</button>
             </div>
         </div>
     );

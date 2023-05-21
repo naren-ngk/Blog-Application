@@ -5,6 +5,7 @@ import "./sidebar.css";
 
 export default function Sidebar() {
   const [cats, setCats] = useState([]);
+  const [shortCats, setShortCats] = useState([]);
 
   useEffect(() => {
     const getCats = async () => {
@@ -13,6 +14,18 @@ export default function Sidebar() {
     };
     getCats();
   }, []);
+
+  useEffect(() => {
+    const modifiedCat = () => {
+      const categoriesObject = cats.map((cat) => {
+        const object = { name: cat.name, shortedName: cat.name.split(' ')[0] };
+        return object;
+      });
+      setShortCats(categoriesObject);
+    }
+    modifiedCat();
+  }, [cats]);
+
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -29,9 +42,9 @@ export default function Sidebar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
-          {cats.map((c) => (
+          {shortCats.map((c) => (
             <Link to={`/?cat=${c.name}`} className="link">
-            <li className="sidebarListItem">{c.name}</li>
+              <li className="sidebarListItem">{c.shortedName}</li>
             </Link>
           ))}
         </ul>

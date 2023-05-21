@@ -98,3 +98,46 @@
 .loader {
     display: block;
 }
+
+.hashtagsContainer {
+    border-top: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.hashtagsTitle {
+    padding: 10px 5px;
+}
+
+.hashtags {
+    padding: 10px 5px;
+}
+
+.categoryContainer {
+    padding: 5px 8px;
+}
+
+.category {
+    display: inline-block;
+    border: 1px solid rgb(37, 121, 255);
+    border-radius: 25px;
+    padding: 5px 8px;
+    color: white;
+    background-color: rgb(37, 121, 255);
+    cursor: pointer;
+}
+
+.buttonPane {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonPane button {
+    color: white;
+    background-color: rgb(226, 120, 0);
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
