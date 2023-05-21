@@ -114,13 +114,17 @@ export default function Write() {
     reader.readAsDataURL(file);
   };
 
+  const fileChange = (selectedFile) => {
+    setFile(selectedFile);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
       username: user.username,
       title, desc,
-      hashtags, category,
-      photo
+      hashtags, photo,
+      categories: category,
     };
     if (file) {
       const formData = new FormData();
@@ -130,7 +134,9 @@ export default function Write() {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         newPost.photo = res.data.imageUrl;
+        console.log(newPost)
         setSelectedImage(res.data.imageUrl);
+
       } catch (err) {
         console.log(err);
       }
@@ -142,6 +148,7 @@ export default function Write() {
       console.log(err);
     }
   };
+
   return (
     <div className="write">
       <form className="writeForm" onSubmit={handleSubmit}>
@@ -164,7 +171,7 @@ export default function Write() {
                 strokeWidthSecondary={3}
               />
             ) : (
-                <Modal modalData={modalData} handleClose={handleClose} handleSubmit={handleSubmit} />
+                <Modal fileChange={fileChange} modalData={modalData} handleClose={handleClose} handleSubmit={handleSubmit} />
               )
             }
           </div>

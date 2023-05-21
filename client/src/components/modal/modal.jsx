@@ -8,7 +8,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-function Modal({ modalData, handleClose, handleSubmit }) {
+function Modal({ modalData, handleClose, handleSubmit, fileChange }) {
     const { title, description, hashtags, photo, category } = modalData.data;
 
     const [file, setFile] = useState(null);
@@ -23,6 +23,7 @@ function Modal({ modalData, handleClose, handleSubmit }) {
             setGeneratedImage(reader.result);
         };
         reader.readAsDataURL(file);
+        fileChange(file);
     };
 
     const handleGenerate = async () => {
