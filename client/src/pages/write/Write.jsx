@@ -30,6 +30,28 @@ export default function Write() {
     setModalVisible(false);
   }
 
+  const imageGeneration = async (prompt = '') => {
+    if (!prompt) {
+      const responseKey = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `Sumarize this text in 5 words. ${desc}`,
+        max_tokens: 1500,
+        temperature: 0,
+      });
+      prompt = responseKey.data.choices[0].text.trim();
+    }
+
+    const responseImage = await openai.createImage({
+      prompt,
+      n: 1,
+      size: "1024x1024",
+    });
+
+    const generatedImage = responseImage.data.data[0].url;
+    setPhoto(generatedImage);
+    return generatedImage;
+  }
+
   const handleOpenModal = async () => {
     setLoadng(true);
     setModalVisible(true);
@@ -62,21 +84,7 @@ export default function Write() {
         temperature: 0,
       });
 
-      const responseKey = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Sumarize this text in 5 words. ${desc}`,
-        max_tokens: 1500,
-        temperature: 0,
-      });
-      const prompt = responseKey.data.choices[0].text.trim();
-
-      const responseImage = await openai.createImage({
-        prompt,
-        n: 1,
-        size: "1024x1024",
-      });
-
-      const generatedImage = responseImage.data.data[0].url;
+      const generatedImage = await imageGeneration();
       const generatedTitle = responseTitle.data.choices[0].text.trim();
       const generatedHashtags = responseHastags.data.choices[0].text.trim();
       const generatedDesc = responseDesc.data.choices[0].text.trim();
@@ -171,7 +179,12 @@ export default function Write() {
                 strokeWidthSecondary={3}
               />
             ) : (
-                <Modal fileChange={fileChange} modalData={modalData} handleClose={handleClose} handleSubmit={handleSubmit} />
+                <Modal
+                  fileChange={fileChange}
+                  modalData={modalData}
+                  handleClose={handleClose}
+                  handleSubmit={handleSubmit}
+                  imageGeneration={imageGeneration} />
               )
             }
           </div>

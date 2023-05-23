@@ -8,7 +8,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-function Modal({ modalData, handleClose, handleSubmit, fileChange }) {
+function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGeneration }) {
     const { title, description, hashtags, photo, category } = modalData.data;
 
     const [file, setFile] = useState(null);
@@ -35,21 +35,8 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange }) {
             promptInput = prompt;
         }
         try {
-            const response = await openai.createCompletion({
-                model: "text-davinci-003",
-                prompt: promptInput,
-                max_tokens: 1500,
-                temperature: 0,
-            });
-            const prompt = response.data.choices[0].text.trim();
-
-            const responseImage = await openai.createImage({
-                prompt,
-                n: 1,
-                size: "1024x1024",
-            });
-            const image_url = responseImage.data.data[0].url;
-            setGeneratedImage(image_url);
+            const generatedImage = await imageGeneration(promptInput);
+            setGeneratedImage(generatedImage);
 
         } catch (error) {
             console.log(error)
@@ -104,7 +91,7 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange }) {
                 ) : (
                         <>
                             <div class="col-3">
-                                <input className="effect-8"
+                                <input className="effect-8 promptBox"
                                     type="text"
                                     value={prompt}
                                     onChange={(e) => setPrompt(e.target.value)}
