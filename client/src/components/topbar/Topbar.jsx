@@ -44,26 +44,29 @@ export default function TopBar() {
           </li>
         </ul>
       </div>
+      <div className='topSearchDiv'>
+        <i className="topSearchIcon fas fa-search"></i>
+      </div>
+      <div className='topCenterDiv'></div>
       <div className="topRight">
         {user ? (
           <Link to="/settings">
             <img className="topImg" src={user.profilePic} alt="" />
           </Link>
         ) : (
-          <ul className="topList">
-            <li className="topListItem">
-              <Link className="link" to="/login">
-                LOGIN
+            <ul className="topList">
+              <li className="topListItem">
+                <Link className="link" to="/login">
+                  LOGIN
               </Link>
-            </li>
-            <li className="topListItem">
-              <Link className="link" to="/register">
-                REGISTER
+              </li>
+              <li className="topListItem">
+                <Link className="link" to="/register">
+                  REGISTER
               </Link>
-            </li>
-          </ul>
-        )}
-        <i className="topSearchIcon fas fa-search"></i>
+              </li>
+            </ul>
+          )}
       </div>
     </div>
   );

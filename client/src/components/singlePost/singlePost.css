@@ -107,7 +107,7 @@
   font-weight: 400;
 }
 
-.commentTilte{
+.commentTilte {
   margin: 10px 0;
 }
 
@@ -154,7 +154,7 @@
   justify-content: space-between;
 }
 
-.postForm > div{
+.postForm>div {
   height: 70px;
   display: flex;
   align-items: center;
@@ -170,9 +170,34 @@
   font-size: 16px;
 }
 
-.commentBtn{
+.commentBtn {
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+}
+
+.commentMsgWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.commentLoginMsg {
+  color: #666;
+  font-size: 23px;
+  font-weight: 500;
+  padding: 15px 0;
+  margin: 0 13px;
+}
+
+.commentLogin {
+  color: white;
+  background-color: #3399FF;
+  padding: 5px 13px;
+  border-radius: 10px;
+  border: 2px solid #3399FF;
+  cursor: pointer;
+  font-size: 16px;
 }

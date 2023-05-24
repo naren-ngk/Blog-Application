@@ -10,12 +10,28 @@
   z-index: 999;
 }
 
-.topLeft,
-.topRight {
-  flex: 3;
+.topLeft {
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.topSearchDiv{
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.topCenterDiv{
+  flex: 0.25;
+}
+
+.topRight{
+  flex: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .topCenter {

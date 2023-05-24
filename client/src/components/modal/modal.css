@@ -57,6 +57,8 @@
 .modalText {
     font-size: 20px;
     white-space: pre-wrap;
+    letter-spacing: 1px;
+    line-height: 25px;
 }
 
 .modalInput:focus {
@@ -237,6 +239,18 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+}
+
+.hashtagLink{
+    color:  #00b4d8;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.hashtagLink:active{
+    color:  #00b4d8;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .generate{

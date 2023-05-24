@@ -131,31 +131,40 @@ export default function SinglePost() {
         )}
       </div>
       <hr />
-      <div className='commentwrapper'>
-        <p className='commentTilte'>Comments</p>
-        <form className='postForm' onSubmit={handleComment}>
-          <div>
-            <div className='postInput'>
-              <input
-                type='text'
-                name='reviews[comment]'
-                className='effect-1'
-                id='comment'
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder='Enter your comment...'
-              />
-              <span class="focus-border"></span>
+      {user ? (
+        <div className='commentwrapper'>
+          <p className='commentTilte'>Comments</p>
+          <form className='postForm' onSubmit={handleComment}>
+            <div>
+              <div className='postInput'>
+                <input
+                  type='text'
+                  name='reviews[comment]'
+                  className='effect-1'
+                  id='comment'
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder='Enter your comment...'
+                />
+                <span class="focus-border"></span>
+              </div>
             </div>
+            <div className='commentBtn'>
+              <button type='submit'>Comment</button>
+            </div>
+          </form>
+          {commentsArray.map((c) => {
+            return <Comments comment={c} />
+          })}
+        </div>
+      ) : (
+          <div className='commentMsgWrapper'>
+            <p className='commentLoginMsg'>You must be logged in to comment</p>
+            <Link className="link" to="/login">
+              <button className='commentLogin'>Login</button>
+            </Link>
           </div>
-          <div className='commentBtn'>
-            <button type='submit'>Comment</button>
-          </div>
-        </form>
-        {commentsArray.map((c) => {
-          return <Comments comment={c} />
-        })}
-      </div>
+        )}
     </div>
   );
 }

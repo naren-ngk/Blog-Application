@@ -31,7 +31,7 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGenerati
     const handleGenerate = async () => {
         setLoadng(true);
         let promptInput = `Sumarize this text in 5 words. ${description}`
-        if(prompt.length > 0){
+        if (prompt.length > 0) {
             promptInput = prompt;
         }
         try {
@@ -125,7 +125,16 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGenerati
             </div>
             <div className='hashtagsContainer'>
                 <p className='hashtagsTitle'>Hashtags:</p>
-                <p className='hashtags'>{hashtags}</p>
+                <p className='hashtags'>
+                    {hashtags.split(' ').map(tag => {
+                        return (
+                            <>
+                                <a href='' className='hashtagLink'>{tag}</a>
+                                <span>&nbsp;&nbsp;</span>
+                            </>
+                        )
+                    })}
+                </p>
             </div>
             <div className='categoryContainer'>
                 <span className='category'>{category}</span>
