@@ -14,12 +14,16 @@
   position: absolute;
   top: 18%;
   font-size: 20px;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
 }
 
 .headerTitleLg {
   position: absolute;
-  top: 20%;
+  top: 32%;
   font-size: 100px;
+  font-weight: 700;
+  color:white;
 }
 
 .headerImg{
@@ -27,4 +31,10 @@
     height: 450px;
     margin-top: 80px;
     object-fit: cover;
+    object-position: top;
+}
+
+.openai{
+  margin-left: 65px;
+  font-size: 15px;
 }

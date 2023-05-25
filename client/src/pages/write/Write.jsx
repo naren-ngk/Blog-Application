@@ -20,6 +20,7 @@ export default function Write() {
   const [hashtags, setHashtags] = useState("");
   const [photo, setPhoto] = useState("");
   const [category, setCategory] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState('');
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +29,7 @@ export default function Write() {
 
   const handleClose = () => {
     setModalVisible(false);
+    setBackgroundColor('#fff');
   }
 
   const imageGeneration = async (prompt = '') => {
@@ -53,63 +55,73 @@ export default function Write() {
   }
 
   const handleOpenModal = async () => {
-    setLoadng(true);
-    setModalVisible(true);
-    try {
-      const responseDesc = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Correct the typos and grammatical mistakes in the given text without changing its context. ${desc}`,
-        max_tokens: 1500,
-        temperature: 0,
-      });
+    if (title.length > 0 && desc.length > 0) {
+      setLoadng(true);
+      setModalVisible(true);
+      setBackgroundColor('rgba(226, 226, 226, 0.486)');
+      try {
+        const responseDesc = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `Correct the typos and grammatical mistakes in the given text only without adding any thing else. ${desc}`,
+          max_tokens: 1500,
+          temperature: 0,
+        });
 
-      const responseTitle = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Correct the typos and grammatical mistakes in the given text only without adding any thing else. ${title}`,
-        max_tokens: 1500,
-        temperature: 0,
-      });
+        const responseTitle = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `Correct the typos and grammatical mistakes in the given text only without adding any thing else. ${title}`,
+          max_tokens: 1500,
+          temperature: 0,
+        });
 
-      const responseCategory = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `From the list [Art and Creativity,Technology and Gadgets,Travel and Adventure,Food and Cooking,Lifestyle and Personal Development,Sports,Entertainment, Others] select one which is suitable for the text given for its category. ${desc}`,
-        max_tokens: 1500,
-        temperature: 0,
-      })
+        const responseCategory = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `From the list [Art and Creativity,Technology and Gadgets,Travel and Adventure,Food and Cooking,Lifestyle and Personal Development,Sports,Entertainment, Others] select one which is suitable for the text given for its category. ${desc}`,
+          max_tokens: 1500,
+          temperature: 0,
+        })
 
-      const responseHastags = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Give 5 hastags suitable for the given text without changing its context. ${desc}`,
-        max_tokens: 1500,
-        temperature: 0,
-      });
+        const responseHastags = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `Give 5 hastags suitable for the given text without changing its context. ${desc}`,
+          max_tokens: 1500,
+          temperature: 0,
+        });
 
-      const generatedImage = await imageGeneration();
-      const generatedTitle = responseTitle.data.choices[0].text.trim();
-      const generatedHashtags = responseHastags.data.choices[0].text.trim();
-      const generatedDesc = responseDesc.data.choices[0].text.trim();
-      const generatedCategory = responseCategory.data.choices[0].text.trim();
+        const generatedImage = await imageGeneration();
+        const generatedTitle = responseTitle.data.choices[0].text.trim();
+        const generatedHashtags = responseHastags.data.choices[0].text.trim();
+        const generatedDesc = responseDesc.data.choices[0].text.trim();
+        const generatedCategory = responseCategory.data.choices[0].text.trim();
 
-      let data = {
-        title: generatedTitle,
-        description: generatedDesc,
-        hashtags: generatedHashtags,
-        photo: generatedImage,
-        category: generatedCategory
+        let data = {
+          title: generatedTitle,
+          description: generatedDesc,
+          hashtags: generatedHashtags,
+          photo: generatedImage,
+          category: generatedCategory
+        }
+        setTitle(generatedTitle);
+        setDesc(generatedDesc);
+        setHashtags(generatedHashtags);
+        setPhoto(generatedImage);
+        setCategory(generatedCategory);
+        setModalData({ ...modalData, data });
+
+      } catch (error) {
+        console.log(error);
+
+      } finally {
+        setLoadng(false);
       }
-      setTitle(generatedTitle);
-      setDesc(generatedDesc);
-      setHashtags(generatedHashtags);
-      setPhoto(generatedImage);
-      setCategory(generatedCategory);
-      setModalData({ ...modalData, data });
-
-    } catch (error) {
-      console.log(error);
-
-    } finally {
-      setLoadng(false);
+    } else {
+      alert('Enter the Title and blog!');
     }
+  };
+
+  const handleTextareaHeight = (e) => {
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
   };
 
   const handleImageUpload = (event) => {
@@ -142,7 +154,6 @@ export default function Write() {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         newPost.photo = res.data.imageUrl;
-        console.log(newPost)
         setSelectedImage(res.data.imageUrl);
 
       } catch (err) {
@@ -158,36 +169,36 @@ export default function Write() {
   };
 
   return (
-    <div className="write">
+    <div className="write" style={{ backgroundColor }}>
+      {modalVisible && (
+        <div className="modal">
+          {loading ? (
+            <Oval
+              height={80}
+              width={80}
+              color="#f18701"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel='oval-loading'
+              secondaryColor="#f18701"
+              strokeWidth={2}
+              strokeWidthSecondary={3}
+            />
+          ) : (
+              <Modal
+                fileChange={fileChange}
+                modalData={modalData}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                imageGeneration={imageGeneration} />
+            )
+          }
+        </div>
+      )}
       <form className="writeForm" onSubmit={handleSubmit}>
         {selectedImage && (
           <img className="writeImg" src={selectedImage} alt="" />
-        )}
-        {modalVisible && (
-          <div className="modal">
-            {loading ? (
-              <Oval
-                height={80}
-                width={80}
-                color="#f18701"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-                ariaLabel='oval-loading'
-                secondaryColor="#f18701"
-                strokeWidth={2}
-                strokeWidthSecondary={3}
-              />
-            ) : (
-                <Modal
-                  fileChange={fileChange}
-                  modalData={modalData}
-                  handleClose={handleClose}
-                  handleSubmit={handleSubmit}
-                  imageGeneration={imageGeneration} />
-              )
-            }
-          </div>
         )}
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
@@ -215,6 +226,7 @@ export default function Write() {
               placeholder="Write Your Blog..."
               type="text"
               className="writeInput writeText"
+              onInput={handleTextareaHeight}
               onChange={e => setDesc(e.target.value)}
             ></textarea>
           </GrammarlyEditorPlugin>

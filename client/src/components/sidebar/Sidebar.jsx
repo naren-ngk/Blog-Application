@@ -29,14 +29,14 @@ export default function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarItem">
-        <span className="sidebarTitle">ABOUT ME</span>
+        <span className="sidebarTitle">About BlogSpot</span>
         <img
-          src="https://i.pinimg.com/236x/1e/3f/58/1e3f587572a7a7b20bbf1828595a1786--holiday-party-themes-holiday-gift-guide.jpg"
-          alt=""
+          src="images/side.jpg"
+          alt="" 
+          className='typewriter'
         />
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate qui
-          necessitatibus nostrum illum reprehenderit.
+        <p className='bio'>
+          BlogSpot is equipped with functionalities AI image generation, automatic typo mistake checking, and a seamless user experience. These features contribute to an enhanced content quality, making it a valuable tool for bloggers.
         </p>
       </div>
       <div className="sidebarItem">

@@ -4,15 +4,17 @@
     justify-content: center;
     align-items: center;
     height: 250px;
-    background-color: rgba(226, 226, 226, 0.486);
+    background-color: rgba(248, 228, 228, 0.486);
 }
 
 .modalContainer {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
     padding: 20px;
-    position: relative;
+    top: 90px;
+    position: absolute;
+    font-size: 20px;
+    background-color: #FFF;
 }
 
 .modalImg {
@@ -48,17 +50,17 @@
 }
 
 .modalInput {
-    font-size: 30px;
+    font-size: 20px;
     border: none;
     padding: 20px;
     width: 70vw;
 }
 
 .modalText {
-    font-size: 20px;
+    font-size: 15px;
     white-space: pre-wrap;
     letter-spacing: 1px;
-    line-height: 25px;
+    line-height: 17px;
 }
 
 .modalInput:focus {
@@ -109,6 +111,7 @@
 }
 
 .hashtagsTitle {
+    font-size: 15px;
     padding: 10px 5px;
 }
 
@@ -125,6 +128,7 @@
     border: 1px solid rgb(37, 121, 255);
     border-radius: 25px;
     padding: 5px 8px;
+    font-size: 15px;
     color: white;
     background-color: rgb(37, 121, 255);
     cursor: pointer;
@@ -144,7 +148,7 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 :focus {
@@ -224,14 +228,14 @@
     transition: 0.4s;
 }
 
-.promptDiv{
+.promptDiv {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.prompt{
+.prompt {
     color: white;
     background-color: teal;
     padding: 10px;
@@ -241,19 +245,20 @@
     font-size: 16px;
 }
 
-.hashtagLink{
-    color:  #00b4d8;
+.hashtagLink {
+    color: #00b4d8;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.hashtagLink:active {
+    color: #00b4d8;
     text-decoration: none;
     cursor: pointer;
 }
 
-.hashtagLink:active{
-    color:  #00b4d8;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.generate{
+.generate {
     color: white;
     background-color: #3399FF;
     padding: 10px;
@@ -262,11 +267,11 @@
     font-size: 16px;
 }
 
-.fileDiv{
+.fileDiv {
     align-self: center;
 }
 
-.fileBtn{
+.fileBtn {
     color: white;
     background-color: #ffcf33;
     padding: 10px;

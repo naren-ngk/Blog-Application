@@ -12,7 +12,11 @@ export default function Settings() {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState(user.password);
   const [success, setSuccess] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(user.profilePic);
+
+  if (imageUrl === '') {
+    setImageUrl('images/user.png');
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

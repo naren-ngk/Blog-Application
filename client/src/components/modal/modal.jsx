@@ -1,12 +1,6 @@
 import './modal.css';
 import { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
-const { Configuration, OpenAIApi } = require("openai");
-
-const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_OPENAI_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGeneration }) {
     const { title, description, hashtags, photo, category } = modalData.data;
@@ -79,7 +73,7 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGenerati
                     <div>
                         <label htmlFor="fileInput" className='modalLabel'>
                             <i className="modalWriteIcon fas fa-plus"></i>
-                            <p>Not satisfied with AI? Upload the image you want...</p>
+                            <p className='fileFont'>Not satisfied with AI? Upload the image you want...</p>
                         </label>
                         <input
                             type="file"
