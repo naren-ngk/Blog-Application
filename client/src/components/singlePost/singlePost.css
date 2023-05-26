@@ -202,3 +202,11 @@
   cursor: pointer;
   font-size: 16px;
 }
+
+.singleHashtagLink {
+  display: inline;
+  color: #00b4d8;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+}

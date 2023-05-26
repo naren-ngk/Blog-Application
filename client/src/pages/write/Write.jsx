@@ -146,7 +146,6 @@ export default function Write() {
       hashtags, photo,
       categories: category,
     };
-    console.log(newPost)
     if (file) {
       const formData = new FormData();
       formData.append('file', file);

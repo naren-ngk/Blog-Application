@@ -141,8 +141,10 @@ export default function SinglePost() {
           {hashtags.map(tag => {
             return (
               <>
-                <a href='' className='hashtagLink'>{tag}</a>
-                <span>&nbsp;&nbsp;</span>
+                <Link to={`/?hash=${tag.slice(1)}`} className="link">
+                  <p className='singleHashtagLink'>{tag}</p>
+                  <span>&nbsp;&nbsp;</span>
+                </Link>
               </>
             )
           })}

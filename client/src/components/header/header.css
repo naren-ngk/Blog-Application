@@ -19,22 +19,25 @@
 }
 
 .headerTitleLg {
+  z-index: 1;
   position: absolute;
-  top: 32%;
+  top: 47%;
   font-size: 100px;
   font-weight: 700;
-  color:white;
+  color: white;
 }
 
-.headerImg{
-    width: 100%;
-    height: 450px;
-    margin-top: 80px;
-    object-fit: cover;
-    object-position: top;
+.headerImg {
+  z-index: 0;
+  position: sticky;
+  width: 100%;
+  height: 450px;
+  margin-top: 80px;
+  object-fit: cover;
+  object-position: top;
 }
 
-.openai{
+.openai {
   margin-left: 65px;
   font-size: 15px;
 }
