@@ -16,8 +16,10 @@ export default function SinglePost() {
   const [post, setPost] = useState({});
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [commentsArray, setCommentsArray] = useState([]);
+  const [category, setCategory] = useState("");
   const [comment, setComment] = useState('');
+  const [hashtags, setHashtags] = useState([]);
+  const [commentsArray, setCommentsArray] = useState([]);
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -26,6 +28,8 @@ export default function SinglePost() {
       setPost(res.data.post);
       setTitle(res.data.post.title);
       setDesc(res.data.post.desc);
+      setCategory(res.data.post.categories);
+      setHashtags(res.data.post.hashtags);
       setCommentsArray(res.data.comments.reverse());
     };
     getPost();
@@ -131,6 +135,22 @@ export default function SinglePost() {
         )}
       </div>
       <hr />
+      <div className='hashtagsContainer'>
+        <p className='hashtagsTitle'>Hashtags:</p>
+        <p className='hashtags'>
+          {hashtags.map(tag => {
+            return (
+              <>
+                <a href='' className='hashtagLink'>{tag}</a>
+                <span>&nbsp;&nbsp;</span>
+              </>
+            )
+          })}
+        </p>
+      </div>
+      <div className='categoryContainer'>
+        <span className='category'>{category}</span>
+      </div>
       {user ? (
         <div className='commentwrapper'>
           <p className='commentTilte'>Comments</p>

@@ -90,7 +90,7 @@ export default function Write() {
 
         const generatedImage = await imageGeneration();
         const generatedTitle = responseTitle.data.choices[0].text.trim();
-        const generatedHashtags = responseHastags.data.choices[0].text.trim();
+        const generatedHashtags = responseHastags.data.choices[0].text.trim().split(' ');
         const generatedDesc = responseDesc.data.choices[0].text.trim();
         const generatedCategory = responseCategory.data.choices[0].text.trim();
 
@@ -146,6 +146,7 @@ export default function Write() {
       hashtags, photo,
       categories: category,
     };
+    console.log(newPost)
     if (file) {
       const formData = new FormData();
       formData.append('file', file);

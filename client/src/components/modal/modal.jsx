@@ -120,7 +120,7 @@ function Modal({ modalData, handleClose, handleSubmit, fileChange, imageGenerati
             <div className='hashtagsContainer'>
                 <p className='hashtagsTitle'>Hashtags:</p>
                 <p className='hashtags'>
-                    {hashtags.split(' ').map(tag => {
+                    {hashtags.map(tag => {
                         return (
                             <>
                                 <a href='' className='hashtagLink'>{tag}</a>

@@ -31,7 +31,7 @@ export default function Sidebar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">About BlogSpot</span>
         <img
-          src="images/side.jpg"
+          src="/images/side.jpg"
           alt="" 
           className='typewriter'
         />

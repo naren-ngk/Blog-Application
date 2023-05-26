@@ -20,9 +20,13 @@ const PostSchema = new mongoose.Schema(
       required: true,
     },
     categories: {
-      type: String,
+      type: Array,
       required: false,
     },
+    hashtags: [{
+      type: String,
+      required: true,
+    }],
     reviews: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review'
