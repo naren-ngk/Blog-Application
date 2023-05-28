@@ -4,7 +4,7 @@ import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./homepage.css";
 
-export default function Homepage() {
+export default function Homepage({ searchDisplay }) {
   const location = useLocation();
   console.log(location);
   return (

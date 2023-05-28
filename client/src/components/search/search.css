@@ -1,0 +1,26 @@
+.searchbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0 10px 40px;
+}
+
+.search {
+    width: 55%;
+    height: 35px;
+    border: 1px solid #ccc;
+    padding: 7px 14px 9px;
+    font: 15px/24px "Lato", Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+}
+
+.search:focus {
+    border: 1px solid #3399FF;
+}
+
+.searchbar button {
+    height: 35px;
+    padding: 0 10px;
+}

@@ -8,13 +8,15 @@ import Write from "./pages/write/Write";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+
   const currentUser = true;
+
   return (
     <Router>
-      <Topbar />
+      <Topbar handleSearchClick={handleSearchClick} />
       <Switch>
         <Route exact path="/">
-          <Homepage />
+          <Homepage searchDisplay={searchDisplay}  />
         </Route>
         <Route path="/posts">
           <Homepage />
